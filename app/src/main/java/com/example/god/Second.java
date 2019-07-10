@@ -67,19 +67,15 @@ public class Second extends AppCompatActivity implements View.OnClickListener {
                 contentValues.put(DBHelper.KEY_PHONE, phone);
                 contentValues.put(DBHelper.KEY_BIO, bio);
 
-
-
                 database.insert(DBHelper.TABLE, null, contentValues);
 
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
-
-
-//            case R.id.btn_withdrawal:
-//                Intent intent1 = new Intent(this, MainActivity.class);
-//                startActivity(intent1);
-//                break;
+            case R.id.btn_withdrawal:
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+                break;
         }
     }
 }

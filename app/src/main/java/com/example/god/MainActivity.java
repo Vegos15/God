@@ -1,7 +1,5 @@
 package com.example.god;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,10 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_btnEdit = (Button) findViewById(R.id.main_btnEdit);
         main_btnEdit.setOnClickListener(this);
 
-
-
-
-
         String query = "SELECT "
                 + DBHelper.KEY_ID + ", "
                 + DBHelper.KEY_NAME + ", "
@@ -51,24 +47,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 " FROM " + DBHelper.TABLE;
 
         Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
 
-        String name = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_NAME));
-        String born = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_BORN));
-        String from = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_FROM));
-        String location = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_LOCATION));
-        String study = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_STUDY));
-        String phone = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_PHONE));
-        String bio = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_BIO));
-        cursor.close();
 
-        tv_name.setText(name);
-        tv_born.setText(born);
-        tv_from.setText(from);
-        tv_location.setText(location);
-        tv_jobAndStudy.setText(study);
-        tv_phone.setText(phone);
-        tv_bio.setText(bio);
+        //maybe here is mistake:
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_NAME));
+                String born = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_BORN));
+                String from = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_FROM));
+                String location = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_LOCATION));
+                String study = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_STUDY));
+                String phone = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_PHONE));
+                String bio = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_BIO));
+                cursor.close();
+
+                tv_name.setText(name);
+                tv_born.setText(born);
+                tv_from.setText(from);
+                tv_location.setText(location);
+                tv_jobAndStudy.setText(study);
+                tv_phone.setText(phone);
+                tv_bio.setText(bio);
+            } while (cursor.moveToNext());
+        }
     }
 
 
